@@ -8,6 +8,17 @@
 
 <body>
   <h1><%=dayIs%></h1>
+  <div class="">
+    <ul>
+      <% for(var i=0; i < itemslist.length; i++){ %>
+      <li><%=itemslist[i];%></li>
+      <% } %>
+    </ul>
+  </div>
+  <form action="/" method="post">
+    <input type="text" name="itemToDoListTextbox" placeholder="Enter the item here.">
+    <button type="submit" name="addItemToDoList">Add Item</button>
+  </form>
 </body>
 
 </html>
