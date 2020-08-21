@@ -9,33 +9,18 @@ app.set('view engine', 'ejs');
 app.get("/", function(req, res) {
   var today = new Date();
   var currentDay = today.getDay();
-  var whichDay = "";
-  console.log(currentDay);
-  switch (currentDay) {
-    case 0:
-      whichDay = "Sunday";
-      break;
-    case 1:
-      whichDay = "Monday";
-      break;
-    case 2:
-      whichDay = "Tuesday";
-      break;
-    case 3:
-      whichDay = "Wednessday";
-      break;
-    case 4:
-      whichDay = "Thusday";
-      break;
-    case 5:
-      whichDay = "Friday";
-      break;
-    case 6:
-      whichDay = "Saturday";
-      break;
-    default:
-      whichDay = "Error Occured!";
+  var options ={
+    weekday :'long',
+    day : 'numeric',
+    month : 'long',
+    year : 'numeric'
   }
+  var whichDay = today.toLocaleDateString("en-IN", options);
+
+  console.log(currentDay);
+  console.log(whichDay);
+
+
   res.render('list', {
     dayIs: whichDay
   });
