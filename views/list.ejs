@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Day Template</title>
-  </head>
-  <body>
-    <p>Today is <%= dayIs %></p>
 
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Day Template</title>
+</head>
+
+<body>
+  <p>Today is <%= dayIs %></p>
+
+  <% if(dayIs==="Friday"){ %>
+  <p>
+    toDoList Of <%= dayIs %>
+  </p>
+  <% }else{ %>
+
+  <p>
+    toDoList of <%= dayIs %>
+  </p>
+  <% } %>
+
+</body>
+
 </html>
-  
