@@ -1,41 +1,62 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const dayFormated = require(__dirname + '/day.js');
 
 const port = 3000;
 const app = express();
 var items = [];
+var workItems = [];
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(express.static("public"));
 
 app.get("/", function(req, res) {
-  var today = new Date();
-  var currentDay = today.getDay();
-  var options = {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  }
-  var whichDay = today.toLocaleDateString("en-IN", options);
 
-  console.log(currentDay);
+  var whichDay = dayFormated.dayFormated();
+
   console.log(whichDay);
 
   res.render('list', {
-    dayIs: whichDay,
+    titleToDoList: whichDay,
     itemslist: items
   });
 });
 app.post("/", function(req, res) {
 
-  var item = req.body.itemToDoListTextbox;
+  let postCheck = req.body.addItemToDoList;
+  let item = req.body.itemToDoListTextbox;
+
+  if(postCheck === "Work List"){
+    workItems.push(item);
+    console.log(req.body);
+    res.redirect('/work')
+  }
+else{
+
   items.push(item);
+  console.log(req.body);
   res.redirect('/');
+}
 
 });
+
+app.get("/work", function(req, res) {
+
+  res.render("list", {
+    titleToDoList: "Work List",
+    itemslist: workItems
+
+  });
+});
+
+// app.post("/work",function(req,res){
+//   let item = req.body.itemToDoListTextbox;
+//   workItems.push(item);
+//    res.redirect('/work')
+// });
 
 app.listen(port, function() {
   console.log("server running on port " + port);
